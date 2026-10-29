@@ -1,127 +1,43 @@
-# torrent-search
 
-A minimal tool for finding open-source software and other freely
-distributable torrents. Searches two sources in parallel:
 
-- **apibay.org** — The Pirate Bay's official JSON API
-- **api.knaben.org** — a meta-search API that itself aggregates TPB, 1337x,
-  Nyaa, YTS, and other indexes
+Torrentula helps you find freely distributable torrents. The new graphical app is the main way to use it. It searches two sources in parallel, combines their results, removes duplicates, and ranks them by seeders.
 
-Results from both are merged, deduplicated, and sorted by seeder count so
-the fastest option floats to the top.
+## Install
 
-## Project layout
+1. Download and extract the ZIP.
+2. Open the folder and run the installer for your computer:
+   - **Windows:** double-click `Install-Windows.bat`
+   - **macOS:** double-click `Install-macOS.command`
+   - **Linux:** run `bash Install-Linux.sh` in a terminal
+3. Open **Torrentula** from your Start Menu, Launchpad, or applications menu.
 
-```
-torrent-search/
-├── src/                    the actual app
-│   ├── torrent_search.py
-│   └── requirements.txt
-├── icon/
-│   └── torrent_search.ico  app icon (used when building the .exe)
-├── build_exe.bat           Windows: builds dist\TorrentSearch.exe
-├── install.bat              Windows: installs the built .exe (Start Menu + Programs list)
-├── install.ps1               (called by install.bat)
-└── dev_setup.py             optional: run from source instead of building an .exe
-```
+The installer sets up Torrentula for your user account, so administrator access is not needed. Python 3.8 or newer is needed during installation. Windows can install it automatically with winget; on macOS or Linux, the installer will explain how to get it if it is missing.
 
-## Windows: build a real installed app (recommended)
+## Use the app
 
-This gets you a proper `TorrentSearch.exe` with its own icon, a Start Menu
-entry, and a listing under **Settings > Apps > Installed apps** that you
-can uninstall from there like any other program. No admin rights needed —
-everything installs per-user.
+Enter a search or choose a suggestion. Select a result to view its details, then choose **Copy Magnet Link**, **Open in Client**, or **Save as File**. Torrentula only finds results and passes the magnet link to your torrent client; it does not download torrents.
 
-**Step 1 — build the .exe.** Double-click `build_exe.bat` (or run it from a
-terminal). This needs Python installed, but only temporarily, to run
-[PyInstaller](https://pyinstaller.org/) — it creates a throwaway build
-environment, compiles `dist\TorrentSearch.exe`, and cleans up after itself.
-Takes a minute or two.
+The app follows your system's light or dark appearance. Use `/` to jump to search, the arrow keys to move through results, and **Show More Results** to load another page. If one search source is unavailable, Torrentula reports it and shows results from the other source when available.
 
-**Step 2 — install it.** Double-click `install.bat`. This copies
-`TorrentSearch.exe` to `%LOCALAPPDATA%\Programs\TorrentSearch`, creates a
-"Torrent Search" Start Menu shortcut, and registers it in Windows' Programs
-list.
+## Terminal version
 
-**Step 3 — use it.** Launch "Torrent Search" from the Start Menu, or run
-the exe directly. Saved magnet files land in a `magnetfiles` folder next
-to the installed exe.
+The terminal version is included as an alternative:
 
-To uninstall later: **Settings > Apps > Installed apps > Torrent Search >
-Uninstall** (or Control Panel > Programs and Features).
+- **Windows:** open **Torrentula Terminal** from the Start Menu.
+- **macOS/Linux:** run `torrentula "ubuntu 24.04"` in a terminal. You can also open the graphical app with `torrentula-gui`.
 
-Since this is an unsigned, locally-built exe, Windows SmartScreen may warn
-you the first time you run it — that's expected for any app that isn't
-purchased through a code-signing certificate; click "More info" > "Run
-anyway" if you're comfortable doing so (you built it yourself, from the
-source right here).
+## Uninstall
 
-## Alternative: run from source (any OS)
+- **Windows:** open **Settings > Apps > Installed apps**, select **Torrentula**, then choose **Uninstall**.
+- **macOS:** run `files/macos/uninstall.command`.
+- **Linux:** run `bash files/linux/uninstall.sh`.
 
-If you'd rather not build an `.exe` — e.g. on macOS/Linux, or just to try
-it quickly — run the installer once:
+Your saved magnet files are kept when you uninstall.
 
-```bash
-python dev_setup.py
-```
+## If installation has a problem
 
-It creates a local virtual environment inside this folder (nothing
-system-wide), a `magnetfiles/` folder, and launcher scripts, then deletes
-itself.
+- **Windows:** if SmartScreen appears, choose **More info > Run anyway** if you trust the ZIP you downloaded.
+- **macOS:** if the installer is blocked, Control-click it, choose **Open**, then choose **Open** again.
+- **Linux:** if Python's virtual environment cannot be created on Debian or Ubuntu, install it with `sudo apt install python3-venv` and run the installer again.
 
-```bash
-# Windows
-run.bat "ubuntu 24.04 desktop"
-
-# macOS/Linux
-./run.sh "ubuntu 24.04 desktop"
-```
-
-### Windows-specific notes for source mode
-
-Run it from a terminal (PowerShell or Command Prompt), not by
-double-clicking `.py` files — that way you can see any output/errors
-instead of the window closing instantly. If `python` isn't recognized, try
-`py` instead.
-
-The app forces UTF-8 output, so non-English torrent titles won't crash
-older Windows consoles. If something does go wrong, it prints the full
-error and waits for you to press Enter before closing, so you can read (or
-copy) it.
-
-## Use
-
-You'll see a ranked list like:
-
-```
-#     S     L      Size  Source       Name
-----------------------------------------------------------------------
-1   842    31    5.7GB  PirateBay    ubuntu-24.04-desktop-amd64.iso
-2   210     8    5.7GB  1337x        Ubuntu 24.04 LTS Desktop
-...
-```
-
-Pick a number, then choose to:
-1. **Copy the magnet link to your clipboard** (recommended) — paste it into
-   your torrent client's "Add Link" / "Add Magnet Link" dialog
-2. **Save it as a text file** in `magnetfiles/` — open the file, copy the
-   link, and paste it the same way
-3. Just print it, to copy manually
-
-Important: a saved magnet file is plain text, **not** a real `.torrent`
-file. Use your client's "Add Link"/"Add Magnet Link" option, not "Add
-Torrent File" — the latter expects actual binary `.torrent` data and will
-error out on a text file.
-
-From there, open it in whatever torrent client you already use (qBittorrent,
-Transmission, etc.) — this tool only searches and hands you the magnet
-link; it doesn't download or manage torrents itself.
-
-## Notes
-
-- No API keys or accounts required.
-- If a source is down or rate-limiting you, the tool reports it to stderr
-  and keeps going with whatever the other source returned.
-- `icon/make_icon.py` regenerates `torrent_search.ico` if you ever want to
-  tweak the icon design (needs Pillow: `pip install pillow`). Not needed to
-  build or run the app.
+For more help, see the installer output. Torrentula searches apibay.org and api.knaben.org; no account or API key is required.
