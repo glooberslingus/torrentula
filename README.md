@@ -1,4 +1,4 @@
-
+<img width="400" height="400" alt="torrentula" src="https://github.com/user-attachments/assets/46e74014-a55a-44fd-bd37-95ba995c7e46" />
 
 Torrentula helps you find freely distributable torrents. The new graphical app is the main way to use it. It searches two sources in parallel, combines their results, removes duplicates, and ranks them by seeders.
 
