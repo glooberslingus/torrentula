@@ -1,7 +1,14 @@
-<img width="400" height="400" alt="torrentula" src="https://github.com/user-attachments/assets/46e74014-a55a-44fd-bd37-95ba995c7e46" />
+# Torrentula
+<p align="center">
+  <img width="160" height="160" alt="Torrentula app icon" src="https://github.com/user-attachments/assets/46e74014-a55a-44fd-bd37-95ba995c7e46" />
+</p>
+
+<h1 align="center">Torrentula</h1>
 
 Torrentula helps you find freely distributable torrents. The new graphical app is the main way to use it. It searches two sources in parallel, combines their results, removes duplicates, and ranks them by seeders.
+<p align="center">A simple graphical app for finding freely distributable torrents.</p>
 
+Torrentula searches two sources in parallel, combines their results, removes duplicates, and ranks them by seeders. Use the graphical app for searching and handing magnet links to your torrent client; Torrentula does not download torrents.
 ## Install
 
 1. Download and extract the ZIP.
