@@ -11,6 +11,8 @@ Torrentula helps you find freely distributable torrents. The new graphical app i
 Torrentula searches two sources in parallel, combines their results, removes duplicates, and ranks them by seeders. Use the graphical app for searching and handing magnet links to your torrent client; Torrentula does not download torrents.
 ## Install
 
+[**Download Torrentula 1.0**](https://github.com/glooberslingus/torrentsearch/blob/main/torrentula%201.0.zip)
+
 1. Download and extract the ZIP.
 2. Open the folder and run the installer for your computer:
    - **Windows:** double-click `Install-Windows.bat`
